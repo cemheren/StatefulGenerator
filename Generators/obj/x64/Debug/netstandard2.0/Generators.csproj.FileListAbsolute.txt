@@ -1,9 +1,0 @@
-C:\Users\cemheren\source\repos\hackhaton21POC\src\Generators\bin\x64\Debug\netstandard2.0\Generators.deps.json
-C:\Users\cemheren\source\repos\hackhaton21POC\src\Generators\bin\x64\Debug\netstandard2.0\Generators.dll
-C:\Users\cemheren\source\repos\hackhaton21POC\src\Generators\bin\x64\Debug\netstandard2.0\Generators.pdb
-C:\Users\cemheren\source\repos\hackhaton21POC\src\Generators\obj\x64\Debug\netstandard2.0\Generators.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\cemheren\source\repos\hackhaton21POC\src\Generators\obj\x64\Debug\netstandard2.0\Generators.AssemblyInfoInputs.cache
-C:\Users\cemheren\source\repos\hackhaton21POC\src\Generators\obj\x64\Debug\netstandard2.0\Generators.AssemblyInfo.cs
-C:\Users\cemheren\source\repos\hackhaton21POC\src\Generators\obj\x64\Debug\netstandard2.0\Generators.csproj.CoreCompileInputs.cache
-C:\Users\cemheren\source\repos\hackhaton21POC\src\Generators\obj\x64\Debug\netstandard2.0\Generators.dll
-C:\Users\cemheren\source\repos\hackhaton21POC\src\Generators\obj\x64\Debug\netstandard2.0\Generators.pdb

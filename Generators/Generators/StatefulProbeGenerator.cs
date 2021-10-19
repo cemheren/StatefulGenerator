@@ -112,32 +112,6 @@ namespace Hackathon21Poc.Generators
                             interleaverCount++; i++;
                             break;
                         }
-
-                        if (invocationExpression.GetText().ToString().Contains("Interleaver.Wait"))
-                        {
-                            statementsSplitByInterleaver.Add(new List<StatementSyntax>());
-                            interleaverCount++; i++;
-
-                            var waitTime = invocationExpression.ArgumentList.Arguments[0].Expression.GetText().ToString();
-
-                            var waitString = $@"{{TimeSpan elapsedTime = DateTime.UtcNow - state.CurrentStateStartTime;
-
-                            if (elapsedTime < {waitTime}) {{
-                                Console.WriteLine($""elapsed time: {{elapsedTime}}"");
-                                return;  
-                            }}
-
-                            Console.WriteLine($""Finished waiting {{{waitTime}}}"");
-                            }}";
-
-                            var block = SyntaxFactory.ParseStatement(waitString);
-
-                            statementsSplitByInterleaver[interleaverCount].Add(block);
-
-                            statementsSplitByInterleaver.Add(new List<StatementSyntax>()); // add the initial one.
-                            interleaverCount++;
-                            break;
-                        }
                     }
 
                     statementsSplitByInterleaver[interleaverCount].Add(statement);
@@ -184,6 +158,9 @@ namespace Hackathon21Poc.Probes {{
 }}", Encoding.UTF8);
             context.AddSource($"{userClass.Identifier.Text}.Generated.cs", sourceText);
         }
+
+
+
 
         private string GetLines(List<StatementSyntax> statementGroup, List<VariableDeclarationSyntax> variables, int indent = 1)
         {
