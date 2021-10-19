@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GeneratorDependencies;
 
-namespace Hackathon21Poc.Probes
+namespace Program.Probes
 {
     public partial class MultiplierState : InterleaverState
     { }

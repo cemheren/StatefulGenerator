@@ -1,8 +1,4 @@
-﻿//-----------------------------------------------------------
-// Copyright (c) Microsoft Corporation.  All rights reserved.
-//-----------------------------------------------------------
-
-namespace Hackathon21Poc.Generators
+﻿namespace Stateful.Generators
 {
     using GeneratorDependencies;
     using Microsoft.CodeAnalysis;
@@ -137,7 +133,7 @@ namespace Hackathon21Poc.Generators
 
             // add the generated implementation to the compilation
             SourceText sourceText = SourceText.From($@"
-namespace Hackathon21Poc.Probes {{
+namespace Program.Probes {{
     {usingStatementsText}
 
     public partial class {userClass.Identifier}State

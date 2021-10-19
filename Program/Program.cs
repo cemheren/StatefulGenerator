@@ -1,7 +1,7 @@
-﻿namespace Hackathon21Poc
-{
-    using Hackathon21Poc.Probes;
+﻿using Program.Probes;
 
+namespace TestProgram
+{
     internal class Program
     {
         private static void Main(string[] args)

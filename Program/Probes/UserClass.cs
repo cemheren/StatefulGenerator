@@ -1,8 +1,4 @@
-﻿//-----------------------------------------------------------
-// Copyright (c) Microsoft Corporation.  All rights reserved.
-//-----------------------------------------------------------
-
-namespace Hackathon21Poc.Probes
+﻿namespace Program.Probes
 {
     using System;
     using System.Threading.Tasks;
