@@ -9,13 +9,13 @@ Stateful generation is separately tested so in theory you can write bug free cod
 
 Development stages: 
 + POC
-- Single method fully converted to steteful 
-- Handle sub-scopes (ifs/whiles/fors)
+- Single method fully converted to stateful 
+- Handle sub-scopes (ifs/whiles/fors) - We are here. 
 - Handle sub methods 
 
 - Maybe I'll enable converting whole programs to stateful 
 - Optionally skip states if the result is cacheable. 
-    i.e. checkpoint 2 always returns 10 when checkpoint 1 is 2. In this case we may skip all the instructions between checkpoint 1 and 2.
+    ex: checkpoint 2 always returns 10 when checkpoint 1 is 2. In this case we may skip all the instructions between checkpoint 1 and 2.
 
 Generete this: 
 
