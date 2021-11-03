@@ -1,15 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31717.71
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generators", "Generators\Generators.csproj", "{8D61062D-DF06-48C5-BDD4-641B0035E6E9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Program", "Program\Program.csproj", "{0E003598-ABD9-4BCC-9C4F-8C7A2928B6C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneratorDependencies", "GeneratorDependencies\GeneratorDependencies.csproj", "{C1CE45CE-91F6-4EDF-BA7C-61297A4AD304}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneratorDependencies", "GeneratorDependencies\GeneratorDependencies.csproj", "{C1CE45CE-91F6-4EDF-BA7C-61297A4AD304}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneratorUnitTest", "GeneratorUnitTest\GeneratorUnitTest.csproj", "{E7420C3A-980C-4306-AC2D-C97354765051}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneratorUnitTest", "GeneratorUnitTest\GeneratorUnitTest.csproj", "{E7420C3A-980C-4306-AC2D-C97354765051}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C5838D23-CF77-4CBE-A8F7-4096DE0EC93E}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

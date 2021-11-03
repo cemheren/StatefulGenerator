@@ -38,7 +38,7 @@ namespace GeneratorUnitTest
         public void SimpleGeneratorTest()
         {
             string userSource = @$"
-namespace Hackathon21Poc.Probes
+namespace Program.Probes
 {{
     using System;
     using GeneratorDependencies;
@@ -64,6 +64,10 @@ namespace Hackathon21Poc.Probes
             if(x == 6)
             {{
                 x = 10;
+    
+                Interleaver.Pause();
+                                
+                x = 20;
             }}
 
             System.Diagnostics.Debug.WriteLine(""test"");

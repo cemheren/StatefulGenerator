@@ -62,29 +62,7 @@
                 .Single()
                 .Body;
 
-            var variableDictionary = methodBody
-                .DescendantNodes()
-                .OfType<VariableDeclarationSyntax>()
-                .ToDictionary(keySelector: (variable) => { return variable.ChildNodes().OfType<VariableDeclaratorSyntax>().First().Identifier.ValueText; });
-
-            var identifiers = methodBody
-                .DescendantNodes()
-                .OfType<IdentifierNameSyntax>()
-                .ToArray();
-
-            var variableIdentifiers = identifiers.Where(identifier => variableDictionary.ContainsKey(identifier.Identifier.ValueText));
-
-            methodBody = methodBody.ReplaceNodes(variableIdentifiers,
-                (node, x) =>
-                {
-                    var memberAccessExpressionSyntax = SyntaxFactory
-                        .MemberAccessExpression(
-                            SyntaxKind.SimpleMemberAccessExpression, 
-                            SyntaxFactory.IdentifierName("state"), 
-                            SyntaxFactory.IdentifierName(node.Identifier.ValueText))
-                        .WithTriviaFrom(node);
-                    return memberAccessExpressionSyntax;
-                });
+            methodBody = RewriteBlock(methodBody, out Dictionary<string, VariableDeclarationSyntax> variableDictionary, out var subscopeCount);
 
             var usingStatementsText = string.Join("", usingStatements.Select(statement => statement.GetText().ToString()).ToArray());
 
@@ -138,7 +116,21 @@ namespace Program.Probes {{
 
     public partial class {userClass.Identifier}State
     {{
+        public {userClass.Identifier}State[] subStates = new {userClass.Identifier}State[{subscopeCount}];
+    
+        public bool bypassCondition = false;
+    
+        public bool evaluateCondition = true;
+
         {GetProperties(semanticModel, variableDictionary.Values.ToList())}
+
+        public {userClass.Identifier}State()
+        {{
+            for(int i = 0; i < this.subStates.Length; i++)
+            {{
+                this.subStates[i] = new {userClass.Identifier}State();
+            }}
+        }}
     }}
 
     public partial class {userClass.Identifier}
@@ -155,8 +147,63 @@ namespace Program.Probes {{
             context.AddSource($"{userClass.Identifier.Text}.Generated.cs", sourceText);
         }
 
+        private BlockSyntax RewriteBlock(BlockSyntax currentBlock, out Dictionary<string, VariableDeclarationSyntax> variableDictionary, out int subscopeCount)
+        {
+            var localVariableDictionary = currentBlock
+                .DescendantNodes()
+                .OfType<VariableDeclarationSyntax>()
+                .ToDictionary(keySelector: (variable) => { return variable.ChildNodes().OfType<VariableDeclaratorSyntax>().First().Identifier.ValueText; });
 
+            var identifiers = currentBlock
+                .DescendantNodes()
+                .OfType<IdentifierNameSyntax>()
+                .ToArray();
 
+            var variableIdentifiers = identifiers.Where(identifier => localVariableDictionary.ContainsKey(identifier.Identifier.ValueText));
+
+            currentBlock = currentBlock.ReplaceNodes(variableIdentifiers,
+                (node, x) =>
+                {
+                    var memberAccessExpressionSyntax = SyntaxFactory
+                        .MemberAccessExpression(
+                            SyntaxKind.SimpleMemberAccessExpression,
+                            SyntaxFactory.IdentifierName("state"),
+                            SyntaxFactory.IdentifierName(node.Identifier.ValueText))
+                        .WithTriviaFrom(node);
+                    return memberAccessExpressionSyntax;
+                });
+
+            var ifStatementConditionExpressions = currentBlock
+                .DescendantNodes()
+                .OfType<IfStatementSyntax>()
+                .Select(c => c.Condition)
+                .ToArray();
+
+            subscopeCount = ifStatementConditionExpressions.Length;
+
+            //var whileStatementSyntaxes = currentBlock
+            //    .DescendantNodes()
+            //    .OfType<WhileStatementSyntax>()
+            //    .ToArray();
+            // next: isolate all if, where etc blocks. and rewrite their entry conditions based on the substates. 
+            // make sure substates can jump to relevant places in the code. 
+
+            var k = 0;
+            currentBlock = currentBlock.ReplaceNodes(ifStatementConditionExpressions,
+                (node, x) =>
+                {
+                    var memberAccessExpressionSyntax = SyntaxFactory
+                        .ParseExpression($"state.subStates[{k}].evaluateCondition && ({node.ToFullString()} || state.subStates[{k}].bypassCondition))")
+                        .WithTriviaFrom(node);
+                    return memberAccessExpressionSyntax;
+                });
+
+            // recursively look at child scopes.
+
+            variableDictionary = localVariableDictionary;
+            
+            return currentBlock;
+        }
 
         private string GetLines(List<StatementSyntax> statementGroup, List<VariableDeclarationSyntax> variables, int indent = 1)
         {
