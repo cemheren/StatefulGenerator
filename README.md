@@ -1,4 +1,21 @@
-# hackhaton21POC
+# StatefulGenerator
+
+A C# source generator for creating stateful methods with checkpoints. 
+
+This generator aims to let the user split up responsibilities when writing stateful code. The consumer can write non stateful code with arbitrary checkpoints and can 
+use the generated code for stateful applications. 
+
+Stateful generation is separately tested so in theory you can write bug free code. And easily unit test your work. 
+
+Development stages: 
++ POC
+- Single method fully converted to steteful 
+- Handle sub-scopes (ifs/whiles/fors)
+- Handle sub methods 
+
+- Maybe I'll enable converting whole programs to stateful 
+- Optionally skip states if the result is cacheable. 
+    i.e. checkpoint 2 always returns 10 when checkpoint 1 is 2. In this case we may skip all the instructions between checkpoint 1 and 2.
 
 Generete this: 
 
