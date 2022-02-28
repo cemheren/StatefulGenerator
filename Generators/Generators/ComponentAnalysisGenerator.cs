@@ -40,14 +40,14 @@
             var dir = Assembly.GetExecutingAssembly().Location;
             var compilation = context.Compilation;
 
-            var strlist = new HashSet<string>();
+            var strlist = new List<string>();
 
             foreach (var classDeclarationSyntax in classes)
             {
                 strlist.Add(classDeclarationSyntax.Identifier.ToString());
 
                 var semantic = compilation.GetSemanticModel(classDeclarationSyntax.SyntaxTree);
-                var classStrlist = new HashSet<string>();
+                var classStrlist = new List<string>();
 
                 foreach (var node in classDeclarationSyntax.DescendantNodes())
                 {
@@ -60,7 +60,7 @@
                     }
                 }
 
-                classStrlist.Select(x => strlist.Add(x)).ToArray();
+                classStrlist.ForEach(x => strlist.Add(x));
             }
 
             File.WriteAllText(Path.Combine(Path.GetDirectoryName(dir), "Analysis.txt"), string.Join("\n", strlist));
