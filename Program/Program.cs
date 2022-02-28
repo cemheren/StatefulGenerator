@@ -1,4 +1,5 @@
-﻿using Program.Probes;
+﻿
+using Program.ComponentAnalysis;
 
 namespace TestProgram
 {
@@ -6,8 +7,8 @@ namespace TestProgram
     {
         private static void Main(string[] args)
         {
-            var userClass = new UserClass();
-            userClass.RunAsync();
+            var topLevelClassOne = new TopLevelClassOne();
+            var topLevelClassTwo = new TopLevelClassTwo();
         }
     }
 }

@@ -11,8 +11,8 @@
     using System.Linq;
     using System.Text;
 
-    [Generator]
-    public class StatefulProbeGenerator : ISourceGenerator
+    //[Generator]
+    public class StatefulProbeGenerator //: ISourceGenerator
     {
         public void Initialize(GeneratorInitializationContext context)
         {
